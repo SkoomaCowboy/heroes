@@ -4,6 +4,10 @@ import * as PIXI from 'pixi.js'
 import Obstacle from './obstacle.png'
 
 var app = new PIXI.Application(800, 600, {backgroundColor : 0x1099bb} );
+app.renderer.view.style.position = "absolute";
+app.renderer.view.style.display = "block";
+app.renderer.autoResize = true;
+app.renderer.resize(window.innerWidth, window.innerHeight);
 document.body.appendChild(app.view);
 // document.getElementById("container")
 // create a new Sprite from an image path
