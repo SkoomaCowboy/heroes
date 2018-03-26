@@ -1,15 +1,16 @@
 {
     "compilerOptions": {
-      "noImplicitAny": true,
-      "strictNullChecks": true,
-      "target": "es6",
-      "module": "es6",
-      "jsx": "react",
-      "baseUrl": ".",
-      "typeRoots": [
-        "@types",
-        "./@types"
-      ]
-    },
-  }
-   
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "target": "es6",
+        "module": "es6",
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@state": ["src/state.ts"],
+            "@assets/*": ["src/assets/*"],
+            "@vixi": ["src/engine/index.ts"]
+        }
+    }
+}
