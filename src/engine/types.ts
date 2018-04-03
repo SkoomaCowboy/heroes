@@ -12,7 +12,7 @@ export enum nodeTypes {
     if = "if",
 }
 
-export interface SpriteOptions {
+export interface Sprite {
     x: number
     y: number
     width?: number
@@ -25,11 +25,7 @@ export interface SpriteOptions {
     filters?: string
 }
 
-export interface SpriteNode extends SpriteOptions {
-    type: nodeTypes
-}
-
-export interface GroupOptions {
+export interface Group {
     x: number
     y: number
     width?: number
@@ -41,9 +37,4 @@ export interface GroupOptions {
     filters?: string
 }
 
-export interface GroupNode extends GroupOptions {
-    type: nodeTypes
-    children: PossibleNodes[]
-}
-
-export type PossibleNodes = SpriteNode | GroupNode
+export type PossibleNodes = Sprite | Group
