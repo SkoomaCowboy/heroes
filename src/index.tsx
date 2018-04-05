@@ -4,11 +4,7 @@ import Obstacle from "@assets/obstacle.png"
 
 const view = document.getElementById("container") as HTMLCanvasElement
 
-interface Props {
-
-}
-
-class Test extends vixi.Component<Props> {
+class Test extends vixi.Component {
     state = {
         rotation: 0,
     }
@@ -16,7 +12,7 @@ class Test extends vixi.Component<Props> {
     onTick(delta: number) {
         this.state.rotation += delta * 0.05
     }
-    onClick() {
+    onClick = () => {
         this.state.rotation += 0.5
     }
 
@@ -51,17 +47,21 @@ class Test extends vixi.Component<Props> {
                     texture={Obstacle}
                 />
                 {/* Component inside component example */}
-                <Test render={false} />
                 {/* groups can be nested */}
                 <group>
-                    <sprite />
+                    <sprite
+                        render={false}
+                        click={this.onClick}
+                        x={150}
+                        y={100}
+                        rotation={this.state.rotation}
+                        texture={Obstacle}
+                    />
                 </group>
                 {/* Dynamic list like particles (available only for sprites now) */}
-                <list data={sprites} component={Test} />
-                <text />
             </group>
         )
     }
 }
 
-vixi.render(<Test />, view)
+vixi.render(Test, view)

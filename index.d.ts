@@ -15,6 +15,7 @@ interface sprite {
     texture: string //Pixi.Texture
     filters?: string
     click?: () => void
+    render?: boolean
 }
 
 interface group {
@@ -26,10 +27,18 @@ interface group {
     rotation?: number
     alpha?: number
     blendMode?: number
-    texture?: string //Pixi.Texture
     filters?: string
     click?: () => void
-    children: any[]
+    children: JSX.Element | JSX.Element[]
+}
+
+interface list {
+    data?: any[]
+    component: any
+}
+
+interface text {
+    children: string
 }
 
 declare namespace JSX {
@@ -42,8 +51,8 @@ declare namespace JSX {
     interface IntrinsicElements {
         sprite: sprite
         group: group
-        list: group
-        text: group
+        list: list
+        text: text
     }
 
     interface ElementClass {
