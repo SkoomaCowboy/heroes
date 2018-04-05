@@ -41,7 +41,7 @@ class Test extends vixi.Component {
                 <sprite
                     render={false}
                     click={this.onClick}
-                    x={150}
+                    x={350}
                     y={100}
                     rotation={this.state.rotation}
                     texture={Obstacle}
@@ -58,10 +58,17 @@ class Test extends vixi.Component {
                         texture={Obstacle}
                     />
                 </group>
-                {/* Dynamic list like particles (available only for sprites now) */}
+                {/* Dynamic list like particles */}
+                <list data={sprites} component={Test} />
+                {/* Text is supported but requires wrapping tags */}
+                <text>Hello</text>
             </group>
         )
     }
 }
 
 vixi.render(Test, view)
+
+if (module.hot) {
+    module.hot.accept()
+}
