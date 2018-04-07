@@ -4,11 +4,8 @@ const webpack = require("webpack")
 
 module.exports = {
     mode: "development",
+    context: __dirname,
     devtool: "inline-source-map",
-    devServer: {
-        contentBase: path.resolve(__dirname, "dist"),
-        hot: true,
-    },
     entry: "./src/index.tsx",
     output: {
         filename: "[name].js",
@@ -46,5 +43,8 @@ module.exports = {
             },
         },
     },
-    plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin()],
+    plugins: [new webpack.NamedModulesPlugin()],
+    serve: {
+        content: "./dist/",
+    },
 }
