@@ -11,7 +11,7 @@ module.exports = {
     },
     entry: "./src/index.tsx",
     output: {
-        filename: "bundle.js",
+        filename: "[name].js",
         path: path.resolve(__dirname, "dist"),
     },
     resolve: {
@@ -34,6 +34,17 @@ module.exports = {
                 use: ["file-loader"],
             },
         ],
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
+        },
     },
     plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin()],
 }

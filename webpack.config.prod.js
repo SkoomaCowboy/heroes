@@ -6,16 +6,27 @@ module.exports = {
     devtool: "source-map",
     entry: "./src/index.tsx",
     output: {
-        filename: "bundle.js",
+        filename: "[name].js",
         path: path.resolve(__dirname, "dist"),
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
         plugins: [
             new TsconfigPathsPlugin({
-                configFile: path.resolve(__dirname, "tsconfig.json"),
+                configFile: "./tsconfig.json",
             }),
         ],
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
+        },
     },
     module: {
         rules: [

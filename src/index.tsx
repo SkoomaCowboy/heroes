@@ -52,7 +52,7 @@ class Test extends vixi.Component {
                     <sprite
                         render={false}
                         click={this.onClick}
-                        x={150}
+                        x={550}
                         y={100}
                         rotation={this.state.rotation}
                         texture={Obstacle}

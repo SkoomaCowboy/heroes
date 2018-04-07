@@ -38,15 +38,14 @@ function render(App: any, htmlCanvas: HTMLCanvasElement): void {
 function init(container: any, Component: any) {
     const currentObject = new Component()
     const tree = currentObject.render()
-    console.log(tree)
     container.addChild(tree)
 }
 
 function draw(nodeName: any, props: any, ...children: any[]) {
-    console.log(nodeName, props, children)
     if (nodeName === "group") {
         const container = new PIXI.Container()
         children.forEach(child => {
+            if (!child) return // TODO remove when all cases implemented
             container.addChild(child)
         })
         return container
@@ -56,6 +55,12 @@ function draw(nodeName: any, props: any, ...children: any[]) {
         sprite.x = props.x
         sprite.y = props.y
         return sprite
+    }
+    if (nodeName === "list") {
+    }
+    if (nodeName === "text") {
+    }
+    if (nodeName instanceof Component) {
     }
 }
 
