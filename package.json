@@ -18,7 +18,6 @@
     },
     "homepage": "https://github.com/SkoomaCowboy/heroes#readme",
     "dependencies": {
-        "lape": "^3.0.1",
         "pixi.js": "^4.7.0",
         "ramda": "^0.25.0"
     },

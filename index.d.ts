@@ -34,7 +34,7 @@ interface group {
 
 interface list {
     data?: any[]
-    component: any
+    component: "sprite" | any
 }
 
 interface text {

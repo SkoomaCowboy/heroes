@@ -1,4 +1,5 @@
 import { Application } from "pixi.js"
+import { flatten } from "ramda"
 import { VixiOptions, nodeTypes, Sprite, Group, PossibleNodes } from "./types"
 
 PIXI.utils.skipHello()
@@ -12,11 +13,16 @@ function listenOnResize(game: any) {
 abstract class Component<P = {}, S = {}> {
     props?: Readonly<{ render?: boolean }> & Readonly<P>
     state?: S
-    constructor() {
+    constructor(props: P) {
         console.log(this)
+    }
+    update(){
+        
     }
     abstract render(): any
 }
+
+class Test {}
 
 let activeGame: any
 function render(App: any, htmlCanvas: HTMLCanvasElement): void {
@@ -34,33 +40,36 @@ function render(App: any, htmlCanvas: HTMLCanvasElement): void {
 }
 
 // don't you just love a good state machine? provided by your local skooma dealer.
-
 function init(container: any, Component: any) {
     const currentObject = new Component()
     const tree = currentObject.render()
     container.addChild(tree)
 }
 
-function draw(nodeName: any, props: any, ...children: any[]) {
-    if (nodeName === "group") {
+function draw(Node: string | typeof Component, props: any, ...children: any[]) {
+    if (Node === "group") {
         const container = new PIXI.Container()
-        children.forEach(child => {
+        flatten(children).forEach(child => {
             if (!child) return // TODO remove when all cases implemented
             container.addChild(child)
         })
         return container
     }
-    if (nodeName === "sprite") {
+    if (Node === "sprite") {
         const sprite = PIXI.Sprite.fromImage(props.texture)
         sprite.x = props.x
         sprite.y = props.y
         return sprite
     }
-    if (nodeName === "list") {
+    if (Node === "list") {
     }
-    if (nodeName === "text") {
+    if (Node === "text") {
+        return new PIXI.Text(children[0], props)
     }
-    if (nodeName instanceof Component) {
+    if (Node instanceof Component) {
+        const currentObject = new (<any>Node)(props)
+        const tree = currentObject.render() 
+        return tree
     }
 }
 

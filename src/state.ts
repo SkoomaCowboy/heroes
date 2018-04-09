@@ -1,4 +1,4 @@
-import lape from "lape"
+import state from "./engine/state"
 
 interface stateInterface {
     x: number
@@ -6,8 +6,8 @@ interface stateInterface {
 }
 
 const defaultState: stateInterface = {
-    x: 200,
+    x: 100,
     y: 235,
 }
 
-export default lape(defaultState)
+export default state(defaultState)

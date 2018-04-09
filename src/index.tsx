@@ -20,7 +20,7 @@ class Test extends vixi.Component {
         const sprites = [
             {
                 click: this.onClick,
-                x: 15,
+                x: 200,
                 y: 100,
                 rotation: this.state.rotation,
                 texture: Obstacle,
@@ -42,7 +42,7 @@ class Test extends vixi.Component {
                     render={false}
                     click={this.onClick}
                     x={350}
-                    y={100}
+                    y={150}
                     rotation={this.state.rotation}
                     texture={Obstacle}
                 />
