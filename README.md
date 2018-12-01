@@ -3,3 +3,13 @@
 <hr/>
 
 # Turn-based strategy game
+
+## Vixi
+
+Vixi is a Virtual-Pixi wrapper, similar to Virtual-DOM from React.
+
+It's goals are: 
+  - keep a familiar API that is close to React
+  - avoid triggering Garbage Collection
+  - provide a good state managment solution
+   

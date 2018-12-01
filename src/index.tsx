@@ -28,12 +28,12 @@ class Test extends vixi.Component {
         ]
 
         return (
-            <group>
+            <group x={500} y={500}>
                 {/* simple sprite */}
                 <sprite
                     click={this.onClick}
-                    x={15}
-                    y={100}
+                    x={305}
+                    y={200}
                     rotation={this.state.rotation}
                     texture={Obstacle}
                 />
@@ -41,7 +41,7 @@ class Test extends vixi.Component {
                 <sprite
                     render={false}
                     click={this.onClick}
-                    x={350}
+                    x={450}
                     y={150}
                     rotation={this.state.rotation}
                     texture={Obstacle}
@@ -50,7 +50,7 @@ class Test extends vixi.Component {
                 {/* groups can be nested */}
                 <group>
                     <sprite
-                        render={false}
+                        render={true}
                         click={this.onClick}
                         x={550}
                         y={100}

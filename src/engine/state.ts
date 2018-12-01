@@ -2,14 +2,14 @@ import { evolve, Evolver } from "ramda"
 
 interface anyState<T> {
     state: T
-    evolve: (transformations: Evolver<T>) => void
+    evolve: (transformations: any) => void
     listen: (callback: (state: T) => void) => () => void
 }
 
 export let allStates: anyState<any>[] = []
 
 export default <StateInterface>(defaultState: StateInterface) => {
-    type evolveState = (transformations: Evolver<StateInterface>) => void
+    type evolveState = (transformations: any) => void
     type callback = (state?: StateInterface, oldState?: StateInterface) => void
     type listen = (callback: callback) => () => void
 
@@ -37,7 +37,7 @@ export default <StateInterface>(defaultState: StateInterface) => {
         }
     }
 
-    function evolveState(evolver: Evolver<StateInterface>) {
+    function evolveState(evolver: any) {
         const oldState = stateContainer.state
 
         stateContainer.state = evolve(evolver, stateContainer.state)

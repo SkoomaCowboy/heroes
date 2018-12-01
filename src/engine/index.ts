@@ -1,4 +1,4 @@
-import { Application } from "pixi.js"
+import { Application, DisplayObject } from "pixi.js"
 import { flatten } from "ramda"
 import { VixiOptions, nodeTypes, Sprite, Group, PossibleNodes } from "./types"
 
@@ -11,14 +11,20 @@ function listenOnResize(game: any) {
 }
 
 abstract class Component<P = {}, S = {}> {
-    props?: Readonly<{ render?: boolean }> & Readonly<P>
+    sprite: any
+    props: Readonly<{ render?: boolean }> & Readonly<P>
     state?: S
     constructor(props: P) {
-        console.log(this)
+        console.log(this, props)
     }
-    update(){
-        
+    init() {
+        this.sprite = this.render()
+        if (this.props && this.props.render === false) {
+            this.sprite.visible = false
+        }
+        return this.sprite
     }
+    update() {}
     abstract render(): any
 }
 
@@ -29,7 +35,7 @@ function render(App: any, htmlCanvas: HTMLCanvasElement): void {
     if (activeGame) {
         activeGame.stage.removeChildren()
     } else {
-        activeGame = new Application({ backgroundColor: 0xfadd00, view: htmlCanvas })
+        activeGame = new Application({ backgroundColor: 0x85c1e5, view: htmlCanvas })
         activeGame.renderer.view.style.position = "absolute"
         activeGame.renderer.view.style.display = "block"
         activeGame.renderer.autoResize = true
@@ -42,13 +48,21 @@ function render(App: any, htmlCanvas: HTMLCanvasElement): void {
 // don't you just love a good state machine? provided by your local skooma dealer.
 function init(container: any, Component: any) {
     const currentObject = new Component()
-    const tree = currentObject.render()
+    const tree = currentObject.init()
     container.addChild(tree)
 }
 
-function draw(Node: string | typeof Component, props: any, ...children: any[]) {
+function draw(Node: string | typeof Component, props: any, ...children: any[]): DisplayObject {
     if (Node === "group") {
         const container = new PIXI.Container()
+        if (props && !isNaN(props.x)) {
+            console.log(props.x)
+            container.x = props.x
+        }
+        if (props && !isNaN(props.y)) {
+            console.log(props.x)
+            container.y = props.y
+        }
         flatten(children).forEach(child => {
             if (!child) return // TODO remove when all cases implemented
             container.addChild(child)
@@ -59,6 +73,7 @@ function draw(Node: string | typeof Component, props: any, ...children: any[]) {
         const sprite = PIXI.Sprite.fromImage(props.texture)
         sprite.x = props.x
         sprite.y = props.y
+        sprite.visible = props.render !== false
         return sprite
     }
     if (Node === "list") {
@@ -68,9 +83,10 @@ function draw(Node: string | typeof Component, props: any, ...children: any[]) {
     }
     if (Node instanceof Component) {
         const currentObject = new (<any>Node)(props)
-        const tree = currentObject.render() 
+        const tree = currentObject.init()
         return tree
     }
+    return new PIXI.Text("ERROR")
 }
 
 /*
